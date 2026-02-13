@@ -25,10 +25,41 @@ class _HomeScreenState extends State<HomeScreen> {
     TimeTab(),
   ];
 
+  List<String> tabsBackgraound = [
+    'quran_background',
+    'hadeth_background',
+    'sebha_background',
+    'radio_background',
+    'time_background',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: tabs[currentindex],
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: .fill,
+            image: AssetImage(
+              'assets/images/${tabsBackgraound[currentindex]}.png',
+            ),
+          ),
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Image.asset(
+                'assets/images/home_header.png',
+                height: MediaQuery.sizeOf(context).height * 0.15,
+                fit: .fitWidth,
+              ),
+            ),
+            tabs[currentindex],
+          ],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentindex,
         onTap: (index) {
