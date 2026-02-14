@@ -376,4 +376,12 @@ class QuranService {
       }
     }
   }
+
+  static List<Sura> mostRecentlySura = [];
+
+  static void mostRecentlySuraAdd(Sura sura) {
+    bool isTrue = mostRecentlySura.any((item) => item.num == sura.num);
+    if (isTrue) return;
+    mostRecentlySura.add(sura);
+  }
 }

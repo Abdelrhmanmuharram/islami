@@ -3,7 +3,7 @@ import 'package:islami/tabs/quran/sura.dart';
 
 class SuraItem extends StatelessWidget {
   Sura sura;
-  SuraItem({required this.sura});
+  SuraItem(this.sura);
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
