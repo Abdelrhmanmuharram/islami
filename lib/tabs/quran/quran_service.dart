@@ -360,4 +360,20 @@ class QuranService {
 
   static Future<String> loadSuraFile(int suraNum) =>
       rootBundle.loadString('assets/Suras/$suraNum.txt');
+
+  static List<Sura> suraSearchResult = List.generate(
+    114,
+    (index) => getSuraFromIndex(index),
+  );
+
+  static void suraSearch(String value) {
+    suraSearchResult.clear();
+    for (int i = 0; i < 114; i++) {
+      if (arabicSuras[i].contains(value) ||
+          englishSurahs[i].contains(value.toLowerCase())) {
+        Sura sura = getSuraFromIndex(i);
+        suraSearchResult.add(sura);
+      }
+    }
+  }
 }

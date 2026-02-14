@@ -26,19 +26,22 @@ class _SuraDetailsScreenState extends State<SuraDetailsScreen> {
       appBar: AppBar(title: Text(sura.englishSurahsName)),
       body: Column(
         children: [
-          Row(
-            mainAxisAlignment: .spaceBetween,
-            children: [
-              Image.asset(
-                'assets/images/left_corner.png',
-                height: screenHeight * 0.1,
-              ),
-              Text(sura.arabicSurasName, style: textTheme.headlineSmall),
-              Image.asset(
-                'assets/images/right_corner.png',
-                height: screenHeight * 0.1,
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: Row(
+              mainAxisAlignment: .spaceBetween,
+              children: [
+                Image.asset(
+                  'assets/images/left_corner.png',
+                  height: screenHeight * 0.1,
+                ),
+                Text(sura.arabicSurasName, style: textTheme.headlineSmall),
+                Image.asset(
+                  'assets/images/right_corner.png',
+                  height: screenHeight * 0.1,
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: ayat.isEmpty

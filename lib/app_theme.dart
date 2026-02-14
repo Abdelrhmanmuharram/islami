@@ -10,6 +10,8 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
     primaryColor: primary,
     appBarTheme: AppBarThemeData(
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
       backgroundColor: black,
       foregroundColor: primary,
       titleTextStyle: TextStyle(
@@ -20,6 +22,23 @@ class AppTheme {
       centerTitle: true,
     ),
     scaffoldBackgroundColor: black,
+    inputDecorationTheme: InputDecorationThemeData(
+      filled: true,
+      fillColor: black.withValues(alpha: 0.6),
+      hintStyle: TextStyle(
+        color: white.withValues(alpha: .6),
+        fontWeight: FontWeight.w700,
+        fontSize: 16,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: primary),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide(color: primary),
+      ),
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: primary,
       selectedItemColor: white,

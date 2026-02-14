@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:islami/app_theme.dart';
 import 'package:islami/tabs/quran/quran_service.dart';
 import 'package:islami/tabs/quran/sura_details_screen.dart';
 import 'package:islami/tabs/quran/sura_item.dart';
 
-class QuranTab extends StatelessWidget {
+class QuranTab extends StatefulWidget {
+  @override
+  State<QuranTab> createState() => _QuranTabState();
+}
+
+class _QuranTabState extends State<QuranTab> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -11,6 +18,27 @@ class QuranTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: .start,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: TextField(
+            style: textTheme.titleMedium,
+            cursorColor: Colors.white,
+            decoration: InputDecoration(
+              hintText: 'Sura Name',
+              prefixIcon: SvgPicture.asset(
+                'assets/icons/quran.svg',
+                width: 28,
+                height: 28,
+                colorFilter: .mode(AppTheme.primary, .srcIn),
+                fit: .scaleDown,
+              ),
+            ),
+            onChanged: (value) {
+              QuranService.suraSearch(value);
+              setState(() {});
+            },
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Text('Suras List', style: textTheme.titleMedium),
@@ -22,16 +50,16 @@ class QuranTab extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pushNamed(
                   SuraDetailsScreen.routeName,
-                  arguments: QuranService.getSuraFromIndex(index),
+                  arguments: QuranService.suraSearchResult[index],
                 );
               },
-              child: SuraItem(sura: QuranService.getSuraFromIndex(index)),
+              child: SuraItem(sura: QuranService.suraSearchResult[index]),
             ),
             separatorBuilder: (_, _) => Divider(
               indent: screenWidth * 0.1,
               endIndent: screenWidth * 0.1,
             ),
-            itemCount: 114,
+            itemCount: QuranService.suraSearchResult.length,
           ),
         ),
       ],
