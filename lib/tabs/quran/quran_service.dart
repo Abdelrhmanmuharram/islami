@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:islami/tabs/quran/sura.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class QuranService {
   static List<String> arabicSuras = [
@@ -379,9 +380,28 @@ class QuranService {
 
   static List<Sura> mostRecentlySura = [];
 
-  static void mostRecentlySuraAdd(Sura sura) {
+  static Future<void> getMostRecentlySuras() async {
+    SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+    List<String>? mostRecentlyIndexes = sharedPrefs.getStringList(
+      'mostRecentlyIdexex',
+    );
+    if (mostRecentlyIndexes == null) return;
+    mostRecentlySura = mostRecentlyIndexes.map((indexString) {
+      int index = int.parse(indexString);
+      Sura sura = getSuraFromIndex(index);
+      return sura;
+    }).toList();
+  }
+
+  static Future<void> mostRecentlySuraAdd(Sura sura) async {
     bool isTrue = mostRecentlySura.any((item) => item.num == sura.num);
     if (isTrue) return;
     mostRecentlySura.add(sura);
+    List<String> mostRecentlyIndexes = mostRecentlySura
+        .map((sura) => (sura.num - 1).toString())
+        .toList();
+
+    SharedPreferences sharedPrefs = await SharedPreferences.getInstance();
+    sharedPrefs.setStringList('mostRecentlyIdexex', mostRecentlyIndexes);
   }
 }

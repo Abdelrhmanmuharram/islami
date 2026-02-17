@@ -57,7 +57,7 @@ class MostRecentlyItem extends StatelessWidget {
             Image.asset(
               'assets/images/most_recent.png',
               height: screenSize.height * 0.14,
-              width: screenSize.width * 0.3,
+              width: screenSize.width * 0.25,
               fit: .fill,
             ),
           ],

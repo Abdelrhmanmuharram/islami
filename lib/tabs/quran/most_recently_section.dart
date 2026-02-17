@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islami/tabs/quran/most_recently_item.dart';
 import 'package:islami/tabs/quran/quran_service.dart';
-import 'package:islami/tabs/quran/sura.dart';
 
-class MostRecentlySection extends StatefulWidget {
-  @override
-  State<MostRecentlySection> createState() => _MostRecentlySectionState();
-}
-
-class _MostRecentlySectionState extends State<MostRecentlySection> {
+class MostRecentlySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Visibility(
