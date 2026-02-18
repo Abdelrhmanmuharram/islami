@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:islami/app_theme.dart';
+import 'package:islami/widget/app_theme.dart';
 import 'package:islami/core/local_storage.dart';
 import 'package:islami/home_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
