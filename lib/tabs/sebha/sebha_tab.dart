@@ -8,6 +8,9 @@ class SebhaTab extends StatefulWidget {
 }
 
 class _SebhaTabState extends State<SebhaTab> {
+  int count = 0;
+  double angle = 0.0;
+  int zekrIndex = 0;
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -70,9 +73,6 @@ class _SebhaTabState extends State<SebhaTab> {
     );
   }
 
-  int count = 0;
-  double angle = 0.0;
-  int zekrIndex = 0;
   List<String> azkar = ['سبحان الله', 'الحمدلله', 'لا اله الا الله'];
 
   void sebhaCount() {
