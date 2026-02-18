@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:islami/app_theme.dart';
+import 'package:islami/tabs/hadeth/hadeth.dart';
+import 'package:islami/tabs/hadeth/hadeth_details_screen.dart';
+import 'package:islami/widget/loading_indicator.dart';
 
-class HadethItem extends StatelessWidget {
+class HadethItem extends StatefulWidget {
+  int index;
+
+  HadethItem({required this.index});
+
+  @override
+  State<HadethItem> createState() => _HadethItemState();
+}
+
+class _HadethItemState extends State<HadethItem> {
+  Hadeth? hadeth;
   @override
   Widget build(BuildContext context) {
+    if (hadeth == null) {
+      loadHadeth();
+    }
     TextTheme textTheme = Theme.of(context).textTheme;
     double screenSzie = MediaQuery.of(context).size.height;
     return Padding(
@@ -27,12 +44,16 @@ class HadethItem extends StatelessWidget {
                     'assets/images/hadeth_left_corner.png',
                     height: screenSzie * 0.1,
                   ),
-                  Text(
-                    'data',
-                    style: textTheme.titleLarge!.copyWith(
-                      color: AppTheme.black,
+                  if (hadeth != null)
+                    Expanded(
+                      child: Text(
+                        hadeth!.title,
+                        style: textTheme.titleLarge!.copyWith(
+                          color: AppTheme.black,
+                        ),
+                        textAlign: .center,
+                      ),
                     ),
-                  ),
                   Image.asset(
                     'assets/images/hadeth_right_corner.png',
                     height: screenSzie * 0.1,
@@ -41,15 +62,30 @@ class HadethItem extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.separated(
-                itemBuilder: (_, _) => Text(
-                  'data',
-                  textAlign: .center,
-                  style: textTheme.titleMedium!.copyWith(color: AppTheme.black),
-                ),
-                separatorBuilder: (_, _) => SizedBox(height: 10),
-                itemCount: 50,
-              ),
+              child: hadeth == null
+                  ? LoadingIndicator()
+                  : InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(
+                          HadethDetailsScreen.routeName,
+                          arguments: hadeth,
+                        );
+                      },
+                      child: ListView.separated(
+                        shrinkWrap: false,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        itemBuilder: (_, index) => Text(
+                          hadeth!.contant[index],
+                          textAlign: .center,
+                          style: textTheme.titleMedium!.copyWith(
+                            color: AppTheme.black,
+                          ),
+                        ),
+                        separatorBuilder: (_, _) => SizedBox(height: 10),
+                        itemCount: hadeth!.contant.length,
+                      ),
+                    ),
             ),
             Image.asset(
               'assets/images/hadeth_footer.png',
@@ -60,5 +96,17 @@ class HadethItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> loadHadeth() async {
+    String hadethFileContant = await rootBundle.loadString(
+      'assets/Hadeth/h${widget.index + 1}.txt',
+    );
+    List<String> hadethLines = hadethFileContant.split('\n');
+    String title = hadethLines[0];
+    hadethLines.removeAt(0);
+    List<String> contant = hadethLines;
+    hadeth = Hadeth(title: title, contant: contant, num: widget.index + 1);
+    setState(() {});
   }
 }

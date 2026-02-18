@@ -7,12 +7,11 @@ class HadethTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
       itemCount: 50,
-      itemBuilder: (_, index, _) => HadethItem(),
+      itemBuilder: (_, index, _) => HadethItem(index: index),
       options: CarouselOptions(
         enlargeCenterPage: true,
         height: double.infinity,
         enlargeFactor: .2,
-        autoPlay: true,
       ),
     );
   }
