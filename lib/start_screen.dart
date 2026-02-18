@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islami/core/local_storage.dart';
 import 'package:islami/home_screen.dart';
-import 'package:islami/tabs/onbording/onbording.dart';
+import 'package:islami/tabs/onbording/onboarding.dart';
 import 'package:islami/widget/loading_indicator.dart';
 
 class StartScreen extends StatefulWidget {
